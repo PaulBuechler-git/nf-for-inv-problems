@@ -17,7 +17,10 @@ class PatchDataset(Dataset):
     pad: bool
     pad_mode: str
 
-    def __init__(self, d_path: str, p_dims: tuple, pad: bool = False, pad_mode: str = 'constant', transform=None):
+    def __init__(self, d_path: str, p_dims: tuple,
+                 pad: bool = False, pad_mode: str = 'constant',
+                 transform=None,
+                 device='cpu'):
         """
         Dataset for patches from images
         :type p_dims: tuple
@@ -29,6 +32,7 @@ class PatchDataset(Dataset):
         self.transform = transform
         self.pad = pad
         self.pad_mode = pad_mode
+        self.device = device
         self.p_extractors, self.img_dims = self.get_patch_extractors()
         self.p_amount = sum(map(lambda p_e: len(p_e), self.p_extractors))
 
@@ -50,7 +54,7 @@ class PatchDataset(Dataset):
         return patch
 
     def get_patch_extractors(self):
-        images = list(map(lambda file: self.transform_PIL(Image.open(file)), self.file_list))
+        images = list(map(lambda file: self.transform_PIL(Image.open(file)).to(self.device), self.file_list))
         patch_extractors = list(map(lambda img: PatchExtractor(img, p_dims=self.p_dims, pad=self.pad, pad_mode=self.pad_mode),
                         images))
         return patch_extractors, patch_extractors[0].inner_dims
