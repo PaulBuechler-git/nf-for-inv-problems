@@ -24,7 +24,7 @@ def main(prop_args):
 
     # Train Dataset
     train_data_set = TwoMoonDataset(sample_count=sample_count, noise=noise, transforms=transform)
-    train_data_loader = DataLoader(train_data_set, batch_size=batch_size, shuffle=False, num_workers=4)
+    train_data_loader = DataLoader(train_data_set, batch_size=batch_size, shuffle=False, num_workers=1)
 
     model = PatchNrModel(layers=layers, hidden_layer_node_count=hidden_nodes,
                          input_dimension=dims, learning_rate=lr)
