@@ -5,7 +5,7 @@ from torch.utils.data import DataLoader
 from torchvision import transforms
 import lightning.pytorch as pl
 from dataset.TwoMoonDataset import TwoMoonDataset
-from models.PatchNrModel import PatchNrModel
+from flow_models.PatchNrModel import PatchNrModel
 
 
 def main(prop_args):
