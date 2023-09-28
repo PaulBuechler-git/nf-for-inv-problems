@@ -62,7 +62,6 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size", type=int, default=32, help="Batch size for the training")
     parser.add_argument("--batches_per_epoc", type=int, default=1000, help="Batches per epoc")
     parser.add_argument("--epoc", type=int, default=100, help="Epoch for the training")
-    parser.add_argument("--cuda", type=bool, default=True if torch.cuda.is_available() else False, help="Enable cuda")
     args = parser.parse_args()
     main(args)
 
