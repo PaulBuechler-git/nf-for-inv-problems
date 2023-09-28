@@ -7,7 +7,6 @@ import lightning.pytorch as pl
 from dataset.TwoMoonDataset import TwoMoonDataset
 from models.PatchNrModel import PatchNrModel
 
-DEVICE ='cuda' if torch.cuda.is_available() else 'cpu'
 
 def main(prop_args):
     batch_size = prop_args.batch_size
@@ -18,9 +17,8 @@ def main(prop_args):
     lr = prop_args.lr
     dims = 2
     noise = prop_args.noise
-
     # Data transforms
-    transform = transforms.Compose([transforms.Lambda(lambda p: 0.20*(p + 2)), transforms.Lambda(lambda patch: patch.to(DEVICE))])
+    transform = transforms.Compose([transforms.Lambda(lambda p: 0.20*(p + 2))])
 
     # Train Dataset
     train_data_set = TwoMoonDataset(sample_count=sample_count, noise=noise, transforms=transform)
@@ -29,8 +27,9 @@ def main(prop_args):
     model = PatchNrModel(layers=layers, hidden_layer_node_count=hidden_nodes,
                          input_dimension=dims, learning_rate=lr)
     logger = TensorBoardLogger("tb_logs", name="patch_nr_tm")
-    trainer = pl.Trainer(accelerator=DEVICE, max_epochs=epochs, logger=logger)
+    trainer = pl.Trainer(max_epochs=epochs, logger=logger)
     trainer.fit(model, train_data_loader)
+
 
 if __name__ == "__main__":
     parser = ArgumentParser(description="Glow training")
@@ -45,5 +44,4 @@ if __name__ == "__main__":
     parser.add_argument("--lr", type=float, default=1e-4, help="learning rate")
     parser.add_argument("--batch_size", type=int, default=64, help="Batch size for the training")
     parser.add_argument("--epoc", type=int, default=10, help="Epoch for the training")
-    args = parser.parse_args()
-    main(args)
+    main(parser.parse_args())
