@@ -2,7 +2,7 @@ import os
 from torch.utils.data import Dataset
 from .PatchExtractor import PatchExtractor
 from PIL import Image
-from torchvision.transforms import Compose, PILToTensor
+from torchvision.transforms import Compose, PILToTensor, Grayscale
 
 
 class PatchDataset(Dataset):
@@ -19,8 +19,9 @@ class PatchDataset(Dataset):
 
     def __init__(self, d_path: str, p_dims: tuple,
                  pad: bool = False, pad_mode: str = 'constant',
-                 transform=None,
-                 device='cpu'):
+                 output_transform=None,
+                 input_transform=Compose([]),
+                 device='cpu', grayscale=True):
         """
         Dataset for patches from images
         :type p_dims: tuple
@@ -29,10 +30,12 @@ class PatchDataset(Dataset):
         self.d_path = d_path
         self.file_list = self.get_file_list()
         self.p_dims = p_dims
-        self.transform = transform
+        self.transform = output_transform
+        self.input_transform = input_transform
         self.pad = pad
         self.pad_mode = pad_mode
         self.device = device
+        self.grayscale = grayscale
         self.p_extractors, self.img_dims = self.get_patch_extractors()
         self.p_amount = sum(map(lambda p_e: len(p_e), self.p_extractors))
 
@@ -54,7 +57,7 @@ class PatchDataset(Dataset):
         return patch
 
     def get_patch_extractors(self):
-        images = list(map(lambda file: self.transform_PIL(Image.open(file)).to(self.device), self.file_list))
+        images = list(map(lambda file: self.input_transform(self.transform_PIL(Image.open(file))).to(self.device), self.file_list))
         patch_extractors = list(map(lambda img: PatchExtractor(img, p_dims=self.p_dims, pad=self.pad, pad_mode=self.pad_mode),
                         images))
         return patch_extractors, patch_extractors[0].inner_dims

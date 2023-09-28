@@ -29,8 +29,11 @@ def main(parsed_args):
         transforms.Lambda(lambda patch: patch / 255.0),
         transforms.Lambda(lambda patch: patch.flatten())])
 
+
     # Train Dataset
-    train_data_set = PatchDataset('./data/set12/train', p_dims, transform=transform)
+    #train_data_set = PatchDataset('./data/set12/train', p_dims, transform=transform)
+    train_data_set = PatchDataset('./data/DIV2K/train', p_dims, output_transform=transform, input_transform=transforms.Compose([transforms.CenterCrop((2000, 1000)),
+                                                                                                                                transforms.Grayscale(num_output_channels=1)]))
     train_dataloader = DataLoader(train_data_set, batch_size=parsed_args.batch_size, shuffle=True, num_workers=1)
     needed = parsed_args.batch_size * epochs * batches_per_epoc
     print(f'train data length: {len(train_data_set)}, needed: {epochs * batches_per_epoc * parsed_args.batch_size}')
