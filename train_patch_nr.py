@@ -31,7 +31,7 @@ def main(parsed_args):
 
     # Train Dataset
     train_data_set = PatchDataset('./data/set12/train', p_dims, transform=transform)
-    train_dataloader = DataLoader(train_data_set, batch_size=parsed_args.batch_size, shuffle=True, num_workers=4)
+    train_dataloader = DataLoader(train_data_set, batch_size=parsed_args.batch_size, shuffle=True, num_workers=1)
     needed = parsed_args.batch_size * epochs * batches_per_epoc
     print(f'train data length: {len(train_data_set)}, needed: {epochs * batches_per_epoc * parsed_args.batch_size}')
     if len(train_dataloader) > needed:
