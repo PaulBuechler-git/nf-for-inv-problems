@@ -32,7 +32,7 @@ def main(prop_args):
 
 
 if __name__ == "__main__":
-    parser = ArgumentParser(description="Glow training")
+    parser = ArgumentParser(description="PatchNr training ")
     # Model
     parser.add_argument("--layers", type=int, default=5, help="Layers in the parameter networks")
     parser.add_argument("--hidden_nodes", type=int, default=32, help="Hidden nodes in the parameter networks")

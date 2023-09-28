@@ -47,3 +47,5 @@ class PatchNrModel(pl.LightningModule):
     def configure_optimizers(self):
         return torch.optim.Adam(self.patch_nr_model.parameters(), lr=self.lr)
 
+
+
