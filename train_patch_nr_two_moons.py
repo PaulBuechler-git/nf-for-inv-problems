@@ -27,7 +27,7 @@ def main(prop_args):
     model = PatchNrModel(layers=layers, hidden_layer_node_count=hidden_nodes,
                          input_dimension=dims, learning_rate=lr)
     logger = TensorBoardLogger("tb_logs", name="patch_nr_tm")
-    trainer = pl.Trainer(max_epochs=epochs, logger=logger)
+    trainer = pl.Trainer(accelerator="gpu" if torch.cuda.is_available() else "cpu", max_epochs=epochs, logger=logger)
     trainer.fit(model, train_data_loader)
 
 
