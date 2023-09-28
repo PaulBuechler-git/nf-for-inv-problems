@@ -34,7 +34,7 @@ def main(parsed_args):
     train_dataloader = DataLoader(train_data_set, batch_size=parsed_args.batch_size, shuffle=True, num_workers=1)
     needed = parsed_args.batch_size * epochs * batches_per_epoc
     print(f'train data length: {len(train_data_set)}, needed: {epochs * batches_per_epoc * parsed_args.batch_size}')
-    if len(train_dataloader) > needed:
+    if len(train_dataloader) < needed:
         raise ValueError(f'Please add data values to the dataloader as the training needs {needed} '
                          f'patches (missing: {len(train_dataloader)-needed} patches)')
 
