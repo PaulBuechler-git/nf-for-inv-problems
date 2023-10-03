@@ -32,7 +32,7 @@ def main(prop_args):
     hidden_channels = 256
 
     model = PatchFlow(input_dims=img_dims, multiscale_blocks=multiscale_blocks, block_depth=block_depth, hidden_channels=hidden_channels)
-    logger = TensorBoardLogger("tb_logs", name="patch_flow")
+    logger = TensorBoardLogger("tb_logs", name="patch_flow_mnist")
     ckpt_callback = pl.callbacks.ModelCheckpoint(save_top_k=-1, every_n_train_steps=1000)
     trainer = pl.Trainer(accelerator="gpu" if torch.cuda.is_available() else "cpu", max_epochs=epoc, logger=logger, callbacks=[ckpt_callback])
     trainer.fit(model, train_loader)
