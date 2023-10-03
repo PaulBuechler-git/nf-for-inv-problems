@@ -30,7 +30,7 @@ def main(prop_args):
 
     multiscale_blocks = 2
     block_depth = 16
-    hidden_channels = 256
+    hidden_channels = 256*2
 
     model = PatchFlow(input_dims=img_dims, multiscale_blocks=multiscale_blocks, block_depth=block_depth, hidden_channels=hidden_channels)
     logger = TensorBoardLogger("tb_logs", name="patch_flow_simple")
