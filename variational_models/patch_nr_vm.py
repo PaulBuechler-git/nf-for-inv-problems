@@ -25,13 +25,12 @@ class PatchNr_VM:
         writer = SummaryWriter(comment=name)
         deg_img = deg_img.to(self.device)
         patch_size = (self.patch_size, self.patch_size)
-        rec_img = torch.Tensor(deg_img.clone(), dtype=torch.float, device=self.device, requires_grad=True)
+        rec_img = deg_img.clone()
         optimizer = torch.optim.Adam([rec_img], lr=1e-4)
         for it in tqdm(range(self.max_iter)):
             optimizer.zero_grad()
             patch_extractor = PatchExtractor(rec_img, patch_size)
-            random_rec_im_patches = torch.Tensor(
-                [patch_extractor.get_random_patch().flatten() for _ in range(self.random_patch_count)])
+            random_rec_im_patches = [patch_extractor.get_random_patch().flatten() for _ in range(self.random_patch_count)]
 
             pred_inv, log_det_inv = self.model(random_rec_im_patches, rev=True)
             reg = torch.mean(torch.sum(pred_inv ** 2, dim=1) / 2) - torch.mean(log_det_inv)
