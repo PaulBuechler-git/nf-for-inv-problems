@@ -19,7 +19,7 @@ def main(prop_args):
 
     img_dims = (channels, patch_size, patch_size)
     patch_dims = (patch_size, patch_size)
-    train_img_path = 'data/simple/simple_patch_image.png'
+    train_img_path = 'data/simple/more_diverse_simple.png'
     transform = tv.transforms.Compose([nf.utils.Scale(255. / 256.),
                                        #nf.utils.Jitter(1 / 256.),
                                        T.Lambda(lambda im: im.reshape(*img_dims))])
