@@ -1,11 +1,12 @@
-# This code belongs to the paper
+# This code is related to the paper
 #
 # F. Altekrüger, A. Denker, P. Hagemann, J. Hertrich, P. Maass and G. Steidl (2023).
 # PatchNR: Learning from Very Few Images by Patch Normalizing Flow Regularization.
 # Inverse Problems, vol. 39, no. 6.
 #
-# Please cite the paper, if you use the code.
-# The script trains the patchNR
+# Modifications were made by Paul Büchler
+
+
 import os.path
 from argparse import ArgumentParser
 
@@ -21,6 +22,7 @@ DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
 def main(passed_args):
+    quiet = passed_args.quiet
     name = 'patch_nr_flow_material'
     patch_size = 6
     num_layers = 5
@@ -32,29 +34,23 @@ def main(passed_args):
     checkpoint_path = os.path.join(path, 'checkpoints')
 
     # initialize model
-    model = PatchNrModel(num_layers, subnet_nodes, patch_size)
+    model = PatchNrModel(num_layers, subnet_nodes, patch_size).to(DEVICE)
     writer = SummaryWriter(log_dir=path)
     batch_size = 32
     optimizer_steps = 750000
-    h_params = {
-        "patch_size": patch_size,
-        "num_layers": num_layers,
-        "subnet_nodes": subnet_nodes,
-        "lr": lr,
-        "batch_size": batch_size
-    }
 
     if not os.path.isdir(checkpoint_path):
         os.mkdir(checkpoint_path)
 
-    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+    print(f'Using Device: {DEVICE}')
 
+    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     train_data = FastPatchDataset('./data/material_pt_nr/train.png', p_dims=patch_size, device=DEVICE)
     eval_data = FastPatchDataset('./data/material_pt_nr/validate.png', p_dims=patch_size, device=DEVICE)
     eval_loss = []
     train_loss = []
-    bar = tqdm(range(optimizer_steps))
-    for it in bar:
+    iterations = tqdm(range(optimizer_steps)) if not quiet else range(optimizer_steps)
+    for it in iterations:
         # extract patches
         patch_batch = train_data.get_batch(batch_size)
         # compute loss
@@ -65,10 +61,10 @@ def main(passed_args):
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-
-        if it % 10 == 0:
-            # update tqdm description (visible loss)
-            bar.set_description(f'T/E:{loss.item()} - {eval_loss[-1][1] if len(eval_loss) > 0 else 0}')
+        if not quiet:
+            if it % 10 == 0:
+                # update tqdm description (visible loss)
+                iterations.set_description(f'T/E:{loss.item()} - {eval_loss[-1][1] if len(eval_loss) > 0 else 0}')
         if it % 100 == 0:
             # save training loss to tensorboard
             writer.add_scalar('loss/training', loss.item(), it)
@@ -99,8 +95,4 @@ def main(passed_args):
 if __name__ == "__main__":
     parser = ArgumentParser(description="PatchFlow training")
     parser.add_argument('--quiet', type=bool, default=False, help="displays progressbar or not")
-    # Training
-    # parser.add_argument("--lr", type=float, default=1e-4, help="learning rate")
-    # parser.add_argument("--batch_size", type=int, default=128, help="Batch size for the training")
-    # parser.add_argument("--epoc", type=int, default=5, help="Epoch for the training")
     main(parser.parse_args())
