@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # This code is related to the paper
 #
 # F. Altekrüger, A. Denker, P. Hagemann, J. Hertrich, P. Maass and G. Steidl (2023).
@@ -94,5 +95,5 @@ def main(passed_args):
 
 if __name__ == "__main__":
     parser = ArgumentParser(description="PatchFlow training")
-    parser.add_argument('--quiet', type=bool, default=False, help="displays progressbar or not")
+    parser.add_argument('--quiet', type=bool, default=True, help="displays progressbar or not")
     main(parser.parse_args())
