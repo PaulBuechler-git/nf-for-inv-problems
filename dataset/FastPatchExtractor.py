@@ -8,7 +8,7 @@ from torchvision import transforms as T
 
 
 class FastPatchExtractor(nn.Module):
-    def __init__(self, p_dim, pad=False, center=False):
+    def __init__(self, p_dim, pad=False, center=False, device='cpu'):
         """
         Class that extracts patches of equal size from input images
         :param p_dim: Dimension of the patches. Expects an int
@@ -20,6 +20,7 @@ class FastPatchExtractor(nn.Module):
         self.center = center
         self.p_dim = p_dim
         self.pad_size = p_dim - 1
+        self.device = device
         self.unfold = nn.Unfold(kernel_size=self.p_dim)
 
     def extract(self, image, batch_size=None):
@@ -36,11 +37,11 @@ class FastPatchExtractor(nn.Module):
         patches = self.unfold(image).squeeze(0).transpose(1, 0)
 
         if batch_size:
-            idx = torch.randperm(patches.size(0))[:batch_size]
+            idx = torch.randperm(patches.size(0), device=self.device)[:batch_size]
             patches = patches[idx, :]
         if self.center:
             patches = patches - torch.mean(patches, -1).unsqueeze(-1)
-        return patches
+        return patches.to(self.device)
 
 
 class FastPatchDataset:
