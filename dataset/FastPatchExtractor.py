@@ -68,7 +68,7 @@ class FastPatchDataset:
         :return Patch batch in flat shape NxP with N the batch size and P the squared patch size
         """
         image_count = len(self.images)
-        random_index = np.random.randint(image_count)
+        random_index = np.random.randint(image_count) if image_count > 1 else 0
         selected_img = self.images[random_index].unsqueeze(0)
         return self.patch_extractor.extract(selected_img, batch_size)
 
