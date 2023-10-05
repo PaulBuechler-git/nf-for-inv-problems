@@ -71,6 +71,9 @@ class FastPatchDataset:
         selected_img = self.images[random_index].unsqueeze(0)
         return self.patch_extractor.extract(selected_img, batch_size)
 
+    def get_images(self):
+        return self.images
+
     def load_images(self):
         """Method that returns the images in the shape of NxCxHxW"""
         transform_pipeline = T.Compose([

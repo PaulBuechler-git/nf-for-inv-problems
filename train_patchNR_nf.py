@@ -90,7 +90,7 @@ def main(passed_args):
             torch.save({'net_state_dict': model.state_dict(), 'optimizer_dict': optimizer.state_dict(),
                         'hparams': model.get_model_h_params()}, os.path.join(checkpoint_path, f'weights_{str(it)}.pth'))
     torch.save({'net_state_dict': model.state_dict(), 'optimizer_dict': optimizer.state_dict(),
-                'hparams': model.get_model_h_params()}, 'patchNR_custom/weights_final.pth')
+                'hparams': model.get_model_h_params()}, os.path.join(checkpoint_path, f'weights_final.pth'))
 
 
 if __name__ == "__main__":
