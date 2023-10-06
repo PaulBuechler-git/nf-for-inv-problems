@@ -49,7 +49,7 @@ class FastPatchDataset:
         T.Lambda(lambda im: im.convert('RGB')),
         T.PILToTensor(),
         T.Grayscale(num_output_channels=1),
-        T.Lambda(lambda i: i.to(torch.float32))])
+        T.Lambda(lambda i: i.to(torch.float32)/255.)])
 
     def __init__(self, path, p_dims, pad=False, center=False, device='cpu',
                  output_transforms=T.Compose([]), input_transform=T.Compose([])):
@@ -75,6 +75,10 @@ class FastPatchDataset:
     def get_images(self):
         return self.images
 
+    @staticmethod
+    def load_image(file):
+        return FastPatchDataset.transform_PIL(Image.open(file))
+
     def load_images(self):
         """Method that returns the images in the shape of NxCxHxW"""
         transform_pipeline = T.Compose([
@@ -89,7 +93,7 @@ class FastPatchDataset:
             # normalize
             T.Lambda(lambda i: i / 255.),
         ])
-        images = [transform_pipeline(Image.open(file)).to(self.device) for file in self.get_file_list()]
+        images = [self.load_image(file) for file in self.get_file_list()]
         # stacked = torch.stack(images, dim=0)
         stacked = images
         # normalize the images

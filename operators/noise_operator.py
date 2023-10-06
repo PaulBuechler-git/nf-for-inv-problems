@@ -13,6 +13,12 @@ class NoiseOperator:
         return torch.clamp(img + noise*1/255., min=0, max=1)
 
 
+def append_noise(img, mean=0, std=1, device='cpu'):
+    noise = torch.tensor(np.random.normal(mean, std, img.size()), device=device, dtype=torch.float)/255.
+    return torch.clamp(img + noise, min=0, max=1)
+
+
+
 
 
 
