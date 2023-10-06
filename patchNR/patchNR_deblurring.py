@@ -95,6 +95,6 @@ if __name__ == '__main__':
     iteration = 600
     rec = patchNR(noisy,lam = lam, patch_size = patch_size, n_patches_out = n_pat,
                   patchNR = net, n_iter_max = iteration)
-    utils.save_img(rec, 'results/patchNR_lentils')
+    utils.save_img(rec, 'results/patchNR_lentils_custom')
     
 
