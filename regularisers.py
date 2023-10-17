@@ -41,6 +41,6 @@ class PatchNrRegulariser(Regulariser):
         }
 
     def evaluate(self, img):
-        padded_img = F.pad(img, [self.padding_size], mode='reflect') if self.padding else img
+        padded_img = F.pad(img, [self.padding_size, self.padding_size], mode='reflect') if self.padding else img
         batch = self.patch_extractor.extract(padded_img, self.sample_number)
         return self.loss(batch)
