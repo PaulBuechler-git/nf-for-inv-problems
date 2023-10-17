@@ -32,7 +32,7 @@ def append_noise(img, mean=0, std=1, device='cpu'):
 class BlurOperator(Operator):
     def __init__(self, kernel, device='cpu'):
         self.device = device
-        self.kernel = kernel
+        self.kernel = kernel.to(device)
         self.kernel_size = kernel.squeeze().size(0)
 
     def __call__(self, image, padding=True):
