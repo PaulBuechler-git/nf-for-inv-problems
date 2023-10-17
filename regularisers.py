@@ -26,7 +26,6 @@ class PatchNrRegulariser(Regulariser):
         self.flow_model = flow_model
         self.patch_size = p_size
         self.patch_extractor = FastPatchExtractor(p_dim=p_size, device=device)
-        self.pad_transformation = F.pad([self.padding_size], mode='reflect')
 
     def loss(self, batch):
         self.flow_model.eval()
