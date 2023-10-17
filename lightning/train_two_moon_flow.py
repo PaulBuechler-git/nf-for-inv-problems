@@ -26,7 +26,7 @@ def main(prop_args):
     train_data_loader = DataLoader(train_data_set, batch_size=batch_size, shuffle=False, num_workers=4)
 
     model = TwoMoonFlow(input_dims=dims, layers=layers, hidden_nodes=hidden_nodes, lr=lr)
-    logger = TensorBoardLogger("tb_logs", name="patch_flow_two_moon")
+    logger = TensorBoardLogger("../tb_logs", name="patch_flow_two_moon")
     ckpt_callback = pl.callbacks.ModelCheckpoint(save_top_k=-1)
     trainer = pl.Trainer(accelerator="gpu" if torch.cuda.is_available() else "cpu", max_steps=steps, logger=logger, callbacks=[ckpt_callback])
     trainer.fit(model, train_data_loader)

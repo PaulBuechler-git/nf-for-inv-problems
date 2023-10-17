@@ -31,7 +31,7 @@ def main(passed_args):
     lr = 1e-4
     # patchNR = model.create_NF(num_layers, subnet_nodes, dimension=patch_size**2)
     timestamp = datetime.datetime.now().strftime("version_%d-%m-%Y_%H:%M:%S")
-    path = os.path.join('./tb_logs', name, timestamp)
+    path = os.path.join('../tb_logs', name, timestamp)
     checkpoint_path = os.path.join(path, 'checkpoints')
 
     # initialize model
@@ -46,8 +46,8 @@ def main(passed_args):
     print(f'Using Device: {DEVICE}')
 
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-    train_data = FastPatchDataset('./data/material_pt_nr/train.png', p_dims=patch_size, device=DEVICE)
-    eval_data = FastPatchDataset('./data/material_pt_nr/validate.png', p_dims=patch_size, device=DEVICE)
+    train_data = FastPatchDataset('../data/material_pt_nr/train.png', p_dims=patch_size, device=DEVICE)
+    eval_data = FastPatchDataset('../data/material_pt_nr/validate.png', p_dims=patch_size, device=DEVICE)
     eval_loss = []
     train_loss = []
     iterations = tqdm(range(optimizer_steps)) if not quiet else range(optimizer_steps)

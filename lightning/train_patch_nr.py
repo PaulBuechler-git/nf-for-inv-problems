@@ -49,7 +49,7 @@ def main(parsed_args):
 
     model = PatchNrModel(layers=parsed_args.layers, hidden_layer_node_count=parsed_args.hidden_nodes,
                          input_dimension=parsed_args.patch_size**2, learning_rate=parsed_args.lr)
-    logger = TensorBoardLogger("tb_logs", name=parsed_args.name)
+    logger = TensorBoardLogger("../tb_logs", name=parsed_args.name)
     trainer = pl.Trainer(limit_train_batches=batches_per_epoc, limit_val_batches=100, max_epochs=epochs, logger=logger)
     trainer.fit(model, train_dataloader, validation_data_loader)
 

@@ -19,14 +19,8 @@ def gaussian_kernel_generator(kernel_size, std):
     return kernel.unsqueeze(0).unsqueeze(0)
 
 
-class BlurOperator:
-    def __init__(self, kernel, device='cpu'):
-        self.device = device
-        self.kernel = kernel
-        self.kernel_size = kernel.squeeze().size(0)
-
-    def __call__(self, image, padding=True):
-        if padding:
-            pad_trans = transforms.Pad([self.kernel_size // 2, ], padding_mode="reflect")
-            image = pad_trans(image)
-        return F.conv2d(image, self.kernel).to(self.device)
+def mean_kernel_generator(kernel_size):
+    """Method that generated a mean filter kernel returns a kernel with shape 1x1xkennel_sizexkernel_size"""
+    kernel = torch.ones((kernel_size, kernel_size))
+    mean_kernel = (1/(kernel_size**2)) * kernel
+    return mean_kernel.unsqueeze(0).unsqueeze(0)
