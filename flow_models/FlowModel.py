@@ -12,6 +12,7 @@ class FlowModel(nn.Module):
             print('hparams' in model_dict)
             if 'hparams' in model_dict:
                 self.hparams = model_dict['hparams']
+                print(self.hparams)
             else:
                 if not hparams is None:
                     self.hparams = hparams
