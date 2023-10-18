@@ -1,11 +1,9 @@
 from torch import nn
 
 from flow_models.FlowModel import FlowModel
-import torch
 from torch import nn
 import FrEIA.framework as Ff
 import FrEIA.modules as Fm
-import numpy as np
 
 
 class PatchNrFlowModel(FlowModel):

@@ -42,6 +42,6 @@ class FlowModel(nn.Module):
     def get_model(cls):
         return cls.model
 
-    def __call__(self, *args, **kwargs):
+    def forward(self, *args, **kwargs):
         return self.model(*args, **kwargs)
 
