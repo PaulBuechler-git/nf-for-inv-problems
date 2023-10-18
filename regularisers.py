@@ -3,6 +3,8 @@ import abc
 import torch
 from torch import Tensor
 import torch.nn.functional as F
+
+from flow_models import FlowModel
 from img_utils import PatchExtractor
 
 
