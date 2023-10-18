@@ -11,7 +11,7 @@ import numpy as np
 class PatchNrFlowModel(FlowModel):
 
     def __init__(self, path=None, device='cpu'):
-        super().__init__(hparams={"num_layers": 5, "sub_net_size": 512, "dimensions": 6 ** 2}, path=path, device=device)
+        super().__init__(hparams={"num_layers": 5, "sub_net_size": 512, "dimension": 6 ** 2}, path=path, device=device)
 
     @classmethod
     def _create_model(cls, num_layers, sub_net_size, dimension):
