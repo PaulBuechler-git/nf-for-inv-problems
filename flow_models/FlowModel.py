@@ -11,10 +11,11 @@ class FlowModel(nn.Module):
             model_dict = torch.load(path, map_location=device)
             if 'hparams' in model_dict:
                 self.hparams = model_dict['hparams']
-            if not hparams is None:
-                self.hparams = hparams
             else:
-                raise Exception('No hyperparameters for model')
+                if not hparams is None:
+                    self.hparams = hparams
+                else:
+                    raise Exception('No hyperparameters for model')
             created_model = self._create_model(**self.hparams)
             created_model.load_state_dict(model_dict['net_state_dict'])
             self.model = created_model
