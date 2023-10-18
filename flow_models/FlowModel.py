@@ -41,3 +41,6 @@ class FlowModel:
     def get_model(cls):
         return cls.model
 
+    def __call__(self, *args, **kwargs):
+        return self.model(*args, **kwargs)
+

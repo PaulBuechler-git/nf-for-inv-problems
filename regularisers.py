@@ -18,7 +18,7 @@ class Regulariser:
 
 class PatchNrRegulariser(Regulariser):
 
-    def __init__(self, flow_model, p_size=6, sample_number=40000, padding=True, padding_size=8, device='cpu'):
+    def __init__(self, flow_model: FlowModel, p_size=6, sample_number=40000, padding=True, padding_size=8, device='cpu'):
         self.padding = padding
         self.padding_size = padding_size
         self.sample_number = sample_number
