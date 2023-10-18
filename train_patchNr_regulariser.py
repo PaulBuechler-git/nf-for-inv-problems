@@ -1,4 +1,3 @@
-#!/opt/conda/bin conda run -n base python
 import torch
 import torchvision.transforms as T
 from flow_models.PatchFlowModel import PatchFlowModel
