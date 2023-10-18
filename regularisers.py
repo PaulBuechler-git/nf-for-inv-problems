@@ -24,7 +24,7 @@ class PatchNrRegulariser(Regulariser):
         self.padding = padding
         self.padding_size = padding_size
         self.sample_number = sample_number
-        self.flow_model = flow_model
+        self.flow_model = flow_model.to(device)
         self.patch_size = p_size
         self.patch_extractor = PatchExtractor(p_size=p_size, device=device)
 
