@@ -31,12 +31,14 @@ class FlowModel(nn.Module):
     def _create_model(cls, **kwargs) -> nn.Module:
         raise NotImplementedError('create_model not implemented')
 
-    @classmethod
-    def get_state(cls):
+    def get_state(self):
         return {
-            "net_state_dict": cls.model.state_dict(),
-            "hparams": cls.hparams
+            "net_state_dict": self.model.state_dict(),
+            "hparams": self.hparams
         }
+
+    def get_hparams(self):
+        return self.hparams
 
     def forward(self, *args, **kwargs):
         return self.model(*args, **kwargs)
