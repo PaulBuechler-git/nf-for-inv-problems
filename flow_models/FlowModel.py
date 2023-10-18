@@ -28,9 +28,8 @@ class FlowModel(nn.Module):
             created_model = self._create_model(**self.hparams)
             self.model = created_model
 
-    @classmethod
     @abc.abstractmethod
-    def _create_model(cls, **kwargs) -> nn.Module:
+    def _create_model(self, **kwargs) -> nn.Module:
         raise NotImplementedError('create_model not implemented')
 
     def get_state(self):

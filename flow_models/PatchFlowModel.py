@@ -9,8 +9,8 @@ class PatchFlowModel(FlowModel):
     def __init__(self, hparams={"num_layers": 10, "sub_net_size": 1024, "dimension": 7 ** 2}, path=None, device='cpu'):
         super().__init__(hparams=hparams, path=path, device=device)
 
-    @classmethod
-    def _create_model(cls, num_layers=10, sub_net_size=512, dimension=81):
+
+    def _create_model(self, num_layers=10, sub_net_size=512, dimension=81):
         # This code belongs to the paper
         #
         # F. Altekrüger, A. Denker, P. Hagemann, J. Hertrich, P. Maass and G. Steidl (2023).
