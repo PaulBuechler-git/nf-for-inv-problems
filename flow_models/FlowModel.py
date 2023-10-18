@@ -36,7 +36,7 @@ class FlowModel(nn.Module):
     def get_state(self):
         return {
             "net_state_dict": self.model.state_dict(),
-            "hparams"self.hparams
+            "hparams": self.hparams
         }
 
     def get_hparams(self):
