@@ -18,7 +18,7 @@ class FlowModel(nn.Module):
             created_model = self._create_model(**self.hparams)
             created_model.to(device)
             created_model.load_state_dict(model_dict['net_state_dict'])
-            self.model = created_model.to(device)
+            self.model = created_model
         else:
             if hparams:
                 self.hparams = hparams
@@ -26,9 +26,9 @@ class FlowModel(nn.Module):
                 raise Exception('No hyperparameters for model')
             created_model = self._create_model(**self.hparams)
             created_model.to(device)
-            self.model: nn.Module = created_model
+            self.model = created_model
 
-    @staticmethod
+    @classmethod
     @abc.abstractmethod
     def _create_model(cls, **kwargs) -> nn.Module:
         raise NotImplementedError('create_model not implemented')

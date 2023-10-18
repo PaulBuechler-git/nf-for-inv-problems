@@ -13,8 +13,8 @@ class PatchNrFlowModel(FlowModel):
     def __init__(self, path=None, device='cpu'):
         super().__init__(hparams={"num_layers": 5, "sub_net_size": 512, "dimension": 6 ** 2}, path=path, device=device)
 
-    @staticmethod
-    def _create_model(num_layers=5, sub_net_size=512, dimension=36):
+    @classmethod
+    def _create_model(cls, num_layers=5, sub_net_size=512, dimension=36):
         print(num_layers, sub_net_size, dimension)
         # This code belongs to the paper
         #
@@ -40,5 +40,4 @@ class PatchNrFlowModel(FlowModel):
         nodes.append(Ff.OutputNode(nodes[-1], name='output'))
 
         model = Ff.ReversibleGraphNet(nodes, verbose=False)
-        print(model)
         return model
