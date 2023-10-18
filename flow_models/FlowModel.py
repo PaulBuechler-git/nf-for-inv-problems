@@ -4,11 +4,12 @@ import torch
 from torch import nn
 
 
-class FlowModel:
+class FlowModel(nn.Module):
     hparams = {}
     model = None
 
     def __init__(self, hparams=None, path=None, device='cpu'):
+        super().__init__()
         if not path is None:
             model_dict = torch.load(path, map_location=device)
             if 'hparams' in model_dict:
