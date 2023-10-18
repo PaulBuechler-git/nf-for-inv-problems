@@ -10,7 +10,7 @@ class PatchFlowModel(FlowModel):
         super().__init__(hparams=hparams, path=path, device=device)
 
 
-    def _create_model(self, num_layers=10, sub_net_size=512, dimension=81):
+    def _create_model(self, num_layers=10, sub_net_size=512, dimension=36):
         # This code belongs to the paper
         #
         # F. Altekrüger, A. Denker, P. Hagemann, J. Hertrich, P. Maass and G. Steidl (2023).

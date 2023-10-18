@@ -9,10 +9,8 @@ class FlowModel(nn.Module):
         super().__init__()
         if not path is None:
             model_dict = torch.load(path, map_location=device)
-            print('hparams' in model_dict)
             if 'hparams' in model_dict:
                 self.hparams = model_dict['hparams']
-                print(self.hparams)
             else:
                 if not hparams is None:
                     self.hparams = hparams
