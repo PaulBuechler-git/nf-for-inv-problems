@@ -1,5 +1,5 @@
 import abc
-
+import copy
 import torch
 from torch import nn
 
@@ -36,11 +36,11 @@ class FlowModel(nn.Module):
     def get_state(self):
         return {
             "net_state_dict": self.model.state_dict(),
-            "hparams": self.hparams
+            "hparams"self.hparams
         }
 
     def get_hparams(self):
-        return self.hparams
+        return copy.copy(self.hparams)
 
     def forward(self, *args, **kwargs):
         return self.model(*args, **kwargs)
