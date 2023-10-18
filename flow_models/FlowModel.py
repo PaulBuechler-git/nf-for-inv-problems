@@ -16,7 +16,6 @@ class FlowModel(nn.Module):
             else:
                 raise Exception('No hyperparameters for model')
             created_model = self._create_model(**self.hparams)
-            created_model.to(device)
             created_model.load_state_dict(model_dict['net_state_dict'])
             self.model = created_model
         else:
@@ -25,7 +24,6 @@ class FlowModel(nn.Module):
             else:
                 raise Exception('No hyperparameters for model')
             created_model = self._create_model(**self.hparams)
-            created_model.to(device)
             self.model = created_model
 
     @classmethod
