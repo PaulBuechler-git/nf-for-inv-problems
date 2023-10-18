@@ -23,6 +23,7 @@ def variational_model_solver(input_tensor: Tensor, start_tensor: Tensor, operato
      :returns a tuple with the reconstructed image at first position and a triple at second position. The triple contains the loss, likelihood and regularisation values.
      """
     degraded_image = input_tensor.clone().to(device)
+    start_tensor = start_tensor.clone().to(device)
     reconstructed_image = torch.tensor(start_tensor.clone(), dtype=torch.float, device=device, requires_grad=True)
 
     optimizer = torch.optim.Adam([reconstructed_image], lr=0.005)
