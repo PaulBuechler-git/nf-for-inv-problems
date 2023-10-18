@@ -33,14 +33,14 @@ class PatchExtractor(nn.Module):
         if self.pad:
             image = torch.cat((image, image[:, :, :self.pad_size, :]), 2)
             image = torch.cat((image, image[:, :, :, :self.pad_size]), 3)
-        patches = self.unfold(image).squeeze(0).transpose(1, 0)
+        patches = self.unfold(image).squeeze(0).transpose(1, 0).to(self.device)
 
         if batch_size:
             idx = torch.randperm(patches.size(0), device=self.device)[:batch_size]
             patches = patches[idx, :]
         if self.center:
             patches = patches - torch.mean(patches, -1).unsqueeze(-1)
-        return patches.to(self.device)
+        return patches
 
 
 class ImageLoader:
