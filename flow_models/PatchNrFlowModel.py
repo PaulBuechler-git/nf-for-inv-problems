@@ -1,3 +1,5 @@
+import abc
+
 from torch import nn
 
 from flow_models.FlowModel import FlowModel
@@ -11,8 +13,9 @@ class PatchNrFlowModel(FlowModel):
     def __init__(self, path=None, device='cpu'):
         super().__init__(hparams={"num_layers": 5, "sub_net_size": 512, "dimension": 6 ** 2}, path=path, device=device)
 
-    @classmethod
-    def _create_model(cls, num_layers, sub_net_size, dimension):
+    @staticmethod
+    def _create_model(num_layers=5, sub_net_size=512, dimension=36):
+        print(num_layers, sub_net_size, dimension)
         # This code belongs to the paper
         #
         # F. Altekrüger, A. Denker, P. Hagemann, J. Hertrich, P. Maass and G. Steidl (2023).
@@ -37,4 +40,5 @@ class PatchNrFlowModel(FlowModel):
         nodes.append(Ff.OutputNode(nodes[-1], name='output'))
 
         model = Ff.ReversibleGraphNet(nodes, verbose=False)
+        print(model)
         return model
