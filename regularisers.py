@@ -3,8 +3,7 @@ import abc
 import torch
 from torch import Tensor
 import torch.nn.functional as F
-
-from dataset.FastPatchExtractor import FastPatchExtractor
+from img_utils import PatchExtractor
 
 
 class Regulariser:
@@ -25,7 +24,7 @@ class PatchNrRegulariser(Regulariser):
         self.sample_number = sample_number
         self.flow_model = flow_model
         self.patch_size = p_size
-        self.patch_extractor = FastPatchExtractor(p_dim=p_size, device=device)
+        self.patch_extractor = PatchExtractor(p_size=p_size, device=device)
 
     def loss(self, batch):
         self.flow_model.eval()
