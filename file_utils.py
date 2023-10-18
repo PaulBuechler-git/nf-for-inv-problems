@@ -23,7 +23,7 @@ def create_versioned_dir(path, name):
 
 def get_version_dir(path, name, version):
     p = os.path.join(path, name, f'version_{version}')
-    if os.path.isdir(p)
+    if os.path.isdir(p):
         return p
     else:
         raise Exception('path does not exist')
