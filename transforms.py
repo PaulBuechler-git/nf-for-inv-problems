@@ -7,5 +7,5 @@ def image_normalization():
     return T.Normalize([0, ], [256., ])
 
 
-def image_dequantization():
-    return T.Lambda(lambda img: img + torch.rand(size=img.size()))
+def image_dequantization(device):
+    return T.Lambda(lambda img: img + torch.rand(size=img.size(), device=device))
