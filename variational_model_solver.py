@@ -45,5 +45,6 @@ def variational_model_solver(input_tensor: Tensor, start_tensor: Tensor, operato
         likelihoods.append(likelihood.item())
         regularisation.append(reg)
         step_bar.set_description_str(f'Loss: {loss}; Likelihood: {likelihood} R: {reg}')
-        metrics_callback()
+        if callable(metrics_callback):
+            metrics_callback(reconstructed_image)
     return reconstructed_image, (losses, likelihoods, regularisation)
