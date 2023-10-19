@@ -2,7 +2,7 @@ import torch
 import torchvision.transforms as T
 from flow_models.PatchFlowModel import PatchFlowModel
 from img_utils import ImageLoader
-from patch_flow_trainer import patch_flow_trainer, log_likelihood_loss
+from trainer import patch_flow_trainer, log_likelihood_loss
 from transforms import image_normalization
 
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

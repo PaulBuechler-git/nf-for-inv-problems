@@ -7,7 +7,7 @@ from regularisers import Regulariser
 
 
 def variational_model_solver(input_tensor: Tensor, start_tensor: Tensor, operator: Operator, regulariser: Regulariser = None,
-                             lam=0.87, steps=600, device='cpu'):
+                             lam=0.87, steps=600, device='cpu', metrics_callback=None):
     """Solver for the variational model.
      It is inspired by the solution algorithm described in the PatchNr paper https://arxiv.org/abs/2205.12021 proposed
      by F. Altekrueger et al.
@@ -45,4 +45,5 @@ def variational_model_solver(input_tensor: Tensor, start_tensor: Tensor, operato
         likelihoods.append(likelihood.item())
         regularisation.append(reg)
         step_bar.set_description_str(f'Loss: {loss}; Likelihood: {likelihood} R: {reg}')
+        metrics_callback()
     return reconstructed_image, (losses, likelihoods, regularisation)
