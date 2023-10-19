@@ -3,7 +3,7 @@ import torchvision.transforms as T
 from flow_models.PatchFlowModel import PatchFlowModel
 from img_utils import ImageLoader
 from patch_flow_trainer import patch_flow_trainer, log_likelihood_loss
-from transforms import image_dequantization, image_normalization
+from transforms import image_normalization
 
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -12,7 +12,6 @@ patch_size = 6
 model = PatchFlowModel(hparams={"num_layers": 5, "sub_net_size": 512, "dimension": patch_size ** 2})
 
 deq_normalization = T.Compose([
-    image_dequantization(device=DEVICE),
     image_normalization()])
 
 train_images = ImageLoader('data/material_pt_nr/train.png', transform=deq_normalization, device=DEVICE)
