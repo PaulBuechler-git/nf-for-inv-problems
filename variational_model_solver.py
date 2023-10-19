@@ -32,6 +32,7 @@ def variational_model_solver(input_tensor: Tensor, start_tensor: Tensor, gt:Tens
      """
     degraded_image = input_tensor.clone().to(device)
     start_tensor = start_tensor.clone().to(device)
+    ground_truth = gt.clone().to(device)
     reconstructed_image = torch.tensor(start_tensor.clone(), dtype=torch.float, device=device, requires_grad=True)
 
     optimizer = torch.optim.Adam([reconstructed_image], lr=0.005)
@@ -42,7 +43,7 @@ def variational_model_solver(input_tensor: Tensor, start_tensor: Tensor, gt:Tens
     likelihoods = []
     regularisation = []
     psnrs = []
-    psnr = PeakSignalNoiseRatio(1.0)
+    psnr = PeakSignalNoiseRatio(1.0).to(device)
 
     for _ in step_bar:
         optimizer.zero_grad()
@@ -55,7 +56,7 @@ def variational_model_solver(input_tensor: Tensor, start_tensor: Tensor, gt:Tens
         likelihoods.append(likelihood.item())
         regularisation.append(reg)
         with torch.no_grad():
-            psnrs.append(psnr(reconstructed_image, gt))
+            psnrs.append(psnr(reconstructed_image, ground_truth))
         step_bar.set_description_str(f'Loss: {loss}; Likelihood: {likelihood} R: {reg}')
 
     return reconstructed_image, losses, likelihoods, regularisation, psnr
