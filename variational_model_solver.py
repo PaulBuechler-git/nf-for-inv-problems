@@ -59,4 +59,4 @@ def variational_model_solver(input_tensor: Tensor, start_tensor: Tensor, gt:Tens
             psnrs.append(psnr(reconstructed_image, ground_truth))
         step_bar.set_description_str(f'Loss: {loss}; Likelihood: {likelihood} R: {reg}')
 
-    return reconstructed_image, losses, likelihoods, regularisation, psnr
+    return reconstructed_image, losses, likelihoods, regularisation, psnrs
