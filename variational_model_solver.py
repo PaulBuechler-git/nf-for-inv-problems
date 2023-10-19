@@ -13,7 +13,7 @@ from regularisers import Regulariser
 
 def variational_model_solver(input_tensor: Tensor, start_tensor: Tensor, gt:Tensor, operator: Operator,
                              regulariser: Regulariser = None,
-                             lam=0.87, steps=600, device='cpu', metrics_callback=lambda step, loss, likelihood, reg, rec_image: step):
+                             lam=0.87, steps=600, device='cpu'):
     """Solver for the variational model.
      It is inspired by the solution algorithm described in the PatchNr paper https://arxiv.org/abs/2205.12021 proposed
      by F. Altekrueger et al.
