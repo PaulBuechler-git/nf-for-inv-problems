@@ -1,3 +1,8 @@
+import os
+import sqlite3
+
+import numpy as np
+import skimage.metrics
 import torch
 from torch import Tensor
 from tqdm import tqdm
@@ -6,13 +11,15 @@ from operators import Operator
 from regularisers import Regulariser
 
 
-def variational_model_solver(input_tensor: Tensor, start_tensor: Tensor, operator: Operator, regulariser: Regulariser = None,
-                             lam=0.87, steps=600, device='cpu', metrics_callback=None):
+def variational_model_solver(input_tensor: Tensor, start_tensor: Tensor, gt:Tensor, operator: Operator,
+                             regulariser: Regulariser = None,
+                             lam=0.87, steps=600, device='cpu', metrics_callback=lambda step, loss, likelihood, reg, rec_image: step):
     """Solver for the variational model.
      It is inspired by the solution algorithm described in the PatchNr paper https://arxiv.org/abs/2205.12021 proposed
      by F. Altekrueger et al.
      This code is more generalized version with the possibility to change the main component e.g.
      operators and regularizers.
+     :param metrics_callback:
      :param input_tensor Tensor containing the degraded input that should be reconstructed.
      :param start_tensor Tensor that acts as starting point for the reconstruction procedure.
      :param operator Operator instance that performs the degradation such as blurr, noise, down sampling.
@@ -33,6 +40,7 @@ def variational_model_solver(input_tensor: Tensor, start_tensor: Tensor, operato
     losses = []
     likelihoods = []
     regularisation = []
+    psnr = []
 
     for _ in step_bar:
         optimizer.zero_grad()
@@ -44,7 +52,8 @@ def variational_model_solver(input_tensor: Tensor, start_tensor: Tensor, operato
         losses.append(loss.item())
         likelihoods.append(likelihood.item())
         regularisation.append(reg)
+        with torch.no_grad():
+            psnr.append(skimage.metrics.peak_signal_noise_ratio(gt, reconstructed_image.detach().numpy()))
         step_bar.set_description_str(f'Loss: {loss}; Likelihood: {likelihood} R: {reg}')
-        if callable(metrics_callback):
-            metrics_callback(reconstructed_image)
-    return reconstructed_image, (losses, likelihoods, regularisation)
+
+    return reconstructed_image, losses, likelihoods, regularisation, psnr
