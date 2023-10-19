@@ -1,0 +1,1 @@
+{"num_layers": 5, "sub_net_size": 512, "dimension": 36, "patch_size": 6, "batch_size": 64, "device": "cuda", "train_img_path": "data/DIV2K/buterfly/train.png", "validation_img_path": "data/DIV2K/buterfly/validate.png", "model_name": "butterfly", "lr": 0.001}
