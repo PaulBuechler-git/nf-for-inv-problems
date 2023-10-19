@@ -6,6 +6,7 @@ import skimage.metrics
 import torch
 from torch import Tensor
 from tqdm import tqdm
+from torchmetrics import PeakSignalNoiseRatio
 
 from operators import Operator
 from regularisers import Regulariser
@@ -40,7 +41,8 @@ def variational_model_solver(input_tensor: Tensor, start_tensor: Tensor, gt:Tens
     losses = []
     likelihoods = []
     regularisation = []
-    psnr = []
+    psnrs = []
+    psnr = PeakSignalNoiseRatio(1.0)
 
     for _ in step_bar:
         optimizer.zero_grad()
@@ -53,7 +55,7 @@ def variational_model_solver(input_tensor: Tensor, start_tensor: Tensor, gt:Tens
         likelihoods.append(likelihood.item())
         regularisation.append(reg)
         with torch.no_grad():
-            psnr.append(skimage.metrics.peak_signal_noise_ratio(gt, reconstructed_image.detach()))
+            psnrs.append(psnr(reconstructed_image, gt))
         step_bar.set_description_str(f'Loss: {loss}; Likelihood: {likelihood} R: {reg}')
 
     return reconstructed_image, losses, likelihoods, regularisation, psnr
