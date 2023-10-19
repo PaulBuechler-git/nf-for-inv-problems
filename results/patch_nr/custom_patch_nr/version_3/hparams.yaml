@@ -1,0 +1,1 @@
+{"num_layers": 5, "sub_net_size": 512, "dimension": 36, "patch_size": 6, "batch_size": 6, "device": "cuda", "train_img_path": "data/material_pt_nr/train.png", "validation_img_path": "data/material_pt_nr/validate.png", "model_name": "custom_patch_nr", "lr": 0.001}
