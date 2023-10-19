@@ -10,9 +10,13 @@ from flow_models.FlowModel import FlowModel
 from img_utils import PatchExtractor, ImageLoader
 
 
+def log_likelihood_loss(z, z_log_det):
+    return torch.mean(0.5 * torch.sum(z ** 2, dim=1) - z_log_det)
+
+
 def patch_flow_trainer(name: str, path: str, model: FlowModel, loss_fn, train_images: ImageLoader, validation_images: ImageLoader,
                        patch_size=6, batch_size=64, steps=750000, val_each_steps=1000, loss_log_each_step=100, device='cpu',
-                       quiet=False, lr=0.005):
+                       quiet=False, lr=0.001):
     if not quiet:
         print(f'Started training for model {name}. \n Will train {steps} steps in device={device}')
     dir = create_versioned_dir(path, name)
@@ -28,15 +32,12 @@ def patch_flow_trainer(name: str, path: str, model: FlowModel, loss_fn, train_im
     hparams['lr'] = lr
     json.dump(hparams, open(os.path.join(dir, 'hparams.yaml'), 'w'))
 
-
     # create sqllite3 conection to save the loss values
     connection = sqlite3.connect(os.path.join(dir, 'loss.db'))
     cursor = connection.cursor()
     cursor.execute("CREATE TABLE flow_model_train_loss(step, loss)")
     cursor.execute("CREATE TABLE flow_model_validation_loss(step, loss)")
     connection.commit()
-
-
 
     model.to(device)
 
