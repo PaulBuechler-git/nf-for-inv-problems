@@ -18,4 +18,4 @@ train_images = ImageLoader('data/DIV2K/buterfly/train.png', transform=deq_normal
 validation_images = ImageLoader('data/DIV2K/buterfly/validate.png', transform=deq_normalization, device=DEVICE)
 
 patch_flow_trainer('butterfly', 'results/patch_nr', model, log_likelihood_loss, train_images, validation_images,
-                   steps=1000, patch_size=patch_size, device=DEVICE)
+                   steps=750000, patch_size=patch_size, device=DEVICE)
