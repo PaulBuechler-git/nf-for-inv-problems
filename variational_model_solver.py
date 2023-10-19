@@ -53,7 +53,7 @@ def variational_model_solver(input_tensor: Tensor, start_tensor: Tensor, gt:Tens
         likelihoods.append(likelihood.item())
         regularisation.append(reg)
         with torch.no_grad():
-            psnr.append(skimage.metrics.peak_signal_noise_ratio(gt, reconstructed_image.detach().numpy()))
+            psnr.append(skimage.metrics.peak_signal_noise_ratio(gt, reconstructed_image.detach()))
         step_bar.set_description_str(f'Loss: {loss}; Likelihood: {likelihood} R: {reg}')
 
     return reconstructed_image, losses, likelihoods, regularisation, psnr
