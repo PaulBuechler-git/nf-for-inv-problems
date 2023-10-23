@@ -1,0 +1,1 @@
+{"name": "material_reconstruction_k_9_std_5", "model": "results/patch_nr/custom_patch_nr/version_3/custom_patch_nr_final.pth", "image": "data/material_pt_nr/test.png", "result_path": "results/deblurring", "lam": 2.0, "steps": 600, "kernel_size": 9, "kernel_std": 5, "noise_std": 0.01, "reg_samples": 50000}
