@@ -25,7 +25,6 @@ def main(device, parsed_args):
     std_start = parsed_args.std_start
     std_end = parsed_args.std_end
     std_steps = parsed_args.std_steps
-    selected_images_count = parsed_args.selected_images_count
     kernel_size = parsed_args.kernel_size
     prior_batch_size = parsed_args.prior_batch_size
 
@@ -71,14 +70,13 @@ if __name__ == "__main__":
     parser.add_argument("--name", type=str, default="custom_material_prior")
     # reconstruction
     parser.add_argument("--model", type=str, default="results/patch_nr/custom_patch_nr/version_3/custom_patch_nr_final.pth", help="model_path")
-    parser.add_argument("--image_path", type=str, default="data/material_pt_nr/test.png", help="image_path")
+    parser.add_argument("--image_path", type=str, default="data/material_pt_nr/testset_superres", help="image_path")
     parser.add_argument("--result_path", type=str, default="results/prior_blurr_sensitivity_experiment")
 
     parser.add_argument("--prior_batch_size", type=int, default=50000)
-    parser.add_argument("--std_start", type=int, default=0.1)
-    parser.add_argument("--std_end", type=int, default=10)
-    parser.add_argument("--std_steps", type=int, default=10)
-    parser.add_argument("--selected_images_count", type=int, default=100)
+    parser.add_argument("--std_start", type=int, default=1)
+    parser.add_argument("--std_end", type=int, default=20)
+    parser.add_argument("--std_steps", type=int, default=20)
     parser.add_argument("--kernel_size", type=int, default=11)
     DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
