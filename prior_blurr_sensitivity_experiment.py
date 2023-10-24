@@ -46,7 +46,7 @@ def main(device, parsed_args):
 
     normalization = transforms.Compose([transforms.Normalize([0, ], [255., ])])
     image_loader = ImageLoader(image_path, device=device, transform=normalization)
-    images = list(map(lambda img: img.to(device), image_loader))
+    images = list(map(lambda img: img.to(device), [image_loader[i] for i in range(len(image_loader))]))
 
     prior = PatchNrRegulariser(model, p_size=patch_size, sample_number=prior_batch_size, padding=True,
                                padding_size=16, device=device)
