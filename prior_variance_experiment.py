@@ -18,15 +18,18 @@ def main(device, parsed_args):
     model_path = parsed_args.model
     image_path = parsed_args.image
     name = parsed_args.name
-    result_path = parsed_args.resul_path
+    result_path = parsed_args.result_path
     start = parsed_args.start
     end = parsed_args.end
     step_size = parsed_args.step_size
     evaluations_per_step = parsed_args.evaluations_per_step
 
     result_dir = create_versioned_dir(result_path, name)
+
+    hparams_dict = vars(parsed_args)
+    hparams_dict['result_dir'] = result_dir
     with open(os.path.join(result_dir, 'params.json'), 'w') as fp:
-        json.dump(vars(parsed_args), fp)
+        json.dump(hparams_dict, fp)
 
     model = PatchFlowModel(path=model_path)
     patch_size = int(math.sqrt(model.hparams['dimension']))
@@ -50,7 +53,7 @@ def main(device, parsed_args):
             prior_val = prior.evaluate(ground_truth)
             end_time = time.time()
             cursor.execute("INSERT INTO prior_variance_experiment VALUES(?, ?, ?, ?, ?)",
-                           (prior_val, samples_step, start_time, end_time, eval_step))
+                           (prior_val.item(), samples_step, start_time, end_time, eval_step))
         connection.commit()
 
     image = ground_truth.detach().cpu()
