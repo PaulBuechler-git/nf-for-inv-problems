@@ -56,7 +56,7 @@ def main(device, parsed_args):
         for image_idx in tqdm(range(len(images))):
             image = images[image_idx]
             c, w, h = image.shape
-            noise_vector = torch.reshape(torch.tensor(np.random.normal(0, std, w*h), device=device), image.shape)
+            noise_vector = torch.reshape(torch.tensor(np.random.normal(0, std, w*h), dtype=torch.float, device=device), image.shape)
             start_time = time.time()
             prior_val = prior.evaluate(image + normalization(noise_vector * scaling))
             end_time = time.time()
@@ -74,7 +74,7 @@ if __name__ == "__main__":
     parser.add_argument("--result_path", type=str, default="results/prior_noise_sensitivity_experiment")
 
     parser.add_argument("--prior_batch_size", type=int, default=50000)
-    parser.add_argument("--std_start", type=int, default=1)
+    parser.add_argument("--std_start", type=int, default=0)
     parser.add_argument("--std_end", type=int, default=10)
     parser.add_argument("--std_steps", type=int, default=20)
     parser.add_argument("--scaling", type=float, default=2.)
