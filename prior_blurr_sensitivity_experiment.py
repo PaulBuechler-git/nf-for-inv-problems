@@ -58,7 +58,7 @@ def main(device, parsed_args):
         print(f'Evaluation started for blurr kernel with size {kernel_size} and std {std}')
         for image_idx in tqdm(range(len(images))):
             start_time = time.time()
-            prior_val = prior.evaluate(images[image_idx])
+            prior_val = prior.evaluate(blur_operator(images[image_idx]))
             end_time = time.time()
             cursor.execute("INSERT INTO prior_blurr_sensitivity_experiment VALUES(?, ?, ?, ?, ?)",
                            (prior_val.item(), std, image_idx, start_time, end_time))
