@@ -52,11 +52,11 @@ def main(device, parsed_args):
                                padding_size=16, device=device)
 
     for std in np.linspace(std_start, std_end, std_steps):
+        image = images[0]
+        c, w, h = image.shape
+        noise_vector = torch.reshape(torch.tensor(np.random.normal(0, std, w*h), dtype=torch.float, device=device), image.shape)
         print(f'Evaluation started for noise with std {std} and scaling {scaling}')
         for image_idx in tqdm(range(len(images))):
-            image = images[image_idx]
-            c, w, h = image.shape
-            noise_vector = torch.reshape(torch.tensor(np.random.normal(0, std, w*h), dtype=torch.float, device=device), image.shape)
             start_time = time.time()
             noisy_image = image + normalization(noise_vector * scaling)
             prior_val = prior.evaluate(noisy_image)
