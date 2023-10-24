@@ -55,7 +55,8 @@ def main(device, parsed_args):
         print(f'Evaluation started for noise with std {std} and scaling {scaling}')
         for image_idx in tqdm(range(len(images))):
             image = images[image_idx]
-            noise_vector = torch.reshape(torch.tensor(np.random.normal(0, std, torch.mul(*image.shape)), device=device), image.shape)
+            c, w, h = image.shape
+            noise_vector = torch.reshape(torch.tensor(np.random.normal(0, std, w*h), device=device), image.shape)
             start_time = time.time()
             prior_val = prior.evaluate(image + normalization(noise_vector * scaling))
             end_time = time.time()
@@ -74,9 +75,9 @@ if __name__ == "__main__":
 
     parser.add_argument("--prior_batch_size", type=int, default=50000)
     parser.add_argument("--std_start", type=int, default=1)
-    parser.add_argument("--std_end", type=int, default=20)
+    parser.add_argument("--std_end", type=int, default=10)
     parser.add_argument("--std_steps", type=int, default=20)
-    parser.add_argument("--scaling", type=float, default=5.)
+    parser.add_argument("--scaling", type=float, default=2.)
     DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     main(DEVICE, parser.parse_args())
