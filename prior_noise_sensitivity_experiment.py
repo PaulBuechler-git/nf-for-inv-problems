@@ -58,7 +58,8 @@ def main(device, parsed_args):
             c, w, h = image.shape
             noise_vector = torch.reshape(torch.tensor(np.random.normal(0, std, w*h), dtype=torch.float, device=device), image.shape)
             start_time = time.time()
-            prior_val = prior.evaluate(image + normalization(noise_vector * scaling))
+            noisy_image = image + normalization(noise_vector * scaling)
+            prior_val = prior.evaluate(noisy_image)
             end_time = time.time()
             cursor.execute("INSERT INTO prior_noise_sensitivity_experiment VALUES(?, ?, ?, ?, ?)",
                            (prior_val.item(), std, image_idx, start_time, end_time))
@@ -75,7 +76,7 @@ if __name__ == "__main__":
 
     parser.add_argument("--prior_batch_size", type=int, default=50000)
     parser.add_argument("--std_start", type=int, default=0)
-    parser.add_argument("--std_end", type=int, default=10)
+    parser.add_argument("--std_end", type=int, default=4)
     parser.add_argument("--std_steps", type=int, default=20)
     parser.add_argument("--scaling", type=float, default=2.)
     DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
