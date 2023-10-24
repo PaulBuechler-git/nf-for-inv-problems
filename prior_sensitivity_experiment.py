@@ -45,7 +45,7 @@ def main(device, parsed_args):
     # create db to store data
     connection = sqlite3.connect(os.path.join(result_dir, 'values.db'))
     cursor = connection.cursor()
-    cursor.execute("CREATE TABLE prior_sensitivity_experiment(prior_val, std_blurr, std_noise, img_index)")
+    cursor.execute("CREATE TABLE prior_sensitivity_experiment(prior_val, std_blur, std_noise, img_index)")
     connection.commit()
 
     normalization = transforms.Compose([transforms.Normalize([0, ], [255., ])])
@@ -66,8 +66,8 @@ def main(device, parsed_args):
                 noisy_image = blur_operator(image + normalization(noise_vector * scaling))
                 prior_val = prior.evaluate(noisy_image)
                 end_time = time.time()
-                cursor.execute("INSERT INTO prior_sensitivity_experiment VALUES(?, ?, ?, ?, ?)",
-                               (prior_val.item(), std_noise, image_idx, start_time, end_time))
+                cursor.execute("INSERT INTO prior_sensitivity_experiment VALUES(?, ?, ?, ?)",
+                               (prior_val.item(), std_blur, std_noise, image_idx))
         connection.commit()
 
 
