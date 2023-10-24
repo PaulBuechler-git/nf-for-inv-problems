@@ -1,0 +1,1 @@
+{"name": "buterfly_reconstruction_k_9_std_5", "model": "results/patch_nr/butterfly/version_1/butterfly_final.pth", "image": "data/DIV2K/buterfly/validate.png", "result_path": "results/deblurring", "lam": 0.02, "steps": 600, "kernel_size": 9, "kernel_std": 5, "noise_std": 0.01, "reg_samples": 50000}
