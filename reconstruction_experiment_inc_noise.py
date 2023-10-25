@@ -79,7 +79,7 @@ def main(device, parsed_args):
             loss = torch.tensor(loss, device='cpu').detach().numpy()
             likelihood = torch.tensor(likelihood, device='cpu').detach().numpy()
             regulariser = torch.tensor(reg, device='cpu').detach().numpy()
-            noise_vals = np.repeat(noise_std, len(regulariser))
+            noise_vals = np.repeat(std_noise, len(regulariser))
             lam_vals = np.repeat(lam, len(regulariser))
             joint_losses = zip(loss, likelihood, regulariser, noise_vals, lam_vals)
 
@@ -119,7 +119,7 @@ if __name__ == "__main__":
     parser.add_argument("--steps", type=int, default=300, help="reconstruction steps")
 
     #image degradation
-    parser.add_argument("--kernel_size", type=int, default=16, help="Kernel size")
+    parser.add_argument("--kernel_size", type=int, default=15, help="Kernel size")
     parser.add_argument("--kernel_std", type=int, default=9, help="Kernel std")
     parser.add_argument("--noise_std_start", type=float, default=0.01, help="Lambda start")
     parser.add_argument("--noise_std_end", type=float, default=4., help="Lambda end")
