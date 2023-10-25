@@ -30,7 +30,7 @@ def main(device, parsed_args):
     steps = parsed_args.steps
     kernel_size = parsed_args.kernel_size
     kernel_std = parsed_args.kernel_std
-    noise_std = parsed_args.noise_std
+    #noise_std = parsed_args.noise_std
     noise_std_start = parsed_args.noise_std_start
     noise_std_end = parsed_args.noise_std_end
     noise_std_steps = parsed_args.noise_std_steps
