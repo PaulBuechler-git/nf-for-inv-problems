@@ -1,0 +1,1 @@
+{"name": "custom_butterfly_prior", "model": "results/patch_nr/butterfly/version_1/butterfly_final.pth", "image": "data/DIV2K/buterfly/train.png", "result_path": "results/prior_variance_experiment", "start": 5000, "end": 120000, "step_size": 5000, "evaluations_per_step": 300, "result_dir": "results/prior_variance_experiment/custom_butterfly_prior/version_2"}
