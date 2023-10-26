@@ -1,1 +1,9 @@
-{"name": "custom_material_prior", "model": "results/patch_nr/custom_patch_nr/version_3/custom_patch_nr_final.pth", "image": "data/material_pt_nr/test.png", "result_path": "results/prior_variance_experiment", "start": 5000, "end": 150000, "step_size": 5000, "evaluations_per_step": 300, "result_dir": "results/prior_variance_experiment/custom_material_prior/version_3"}
+{"name": "custom_material_prior",
+  "model": "results/patch_nr/custom_patch_nr/version_3/custom_patch_nr_final.pth",
+  "image": "data/material_pt_nr/test.png", "result_path": "results/prior_variance_experiment",
+  "start": 5000,
+  "end": 150000,
+  "step_size": 5000,
+  "evaluations_per_step":
+  300,
+  "result_dir": "results/prior_variance_experiment/custom_material_prior/version_3"}
