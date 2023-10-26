@@ -5,7 +5,7 @@ from PIL import Image
 
 
 def save_normalized(path, arr):
-     Image.fromarray((arr * 255).astype(np.uint8)).save(path)
+     Image.fromarray(np.clip(arr * 255, 0, 255).astype(np.uint8)).save(path)
 
 
 def create_versioned_dir(path, name):
