@@ -71,12 +71,12 @@ if __name__ == "__main__":
     parser.add_argument("--name", type=str, default="custom_material_prior")
     # reconstruction
     parser.add_argument("--model", type=str, default="results/patch_nr/custom_patch_nr/version_3/custom_patch_nr_final.pth", help="model_path")
-    parser.add_argument("--image_path", type=str, default="data/material_pt_nr/testset_superres", help="image_path")
+    parser.add_argument("--image_path", type=str, default="data/material_pt_nr/test.png", help="image_path")
     parser.add_argument("--result_path", type=str, default="results/prior_noise_sensitivity_experiment")
 
     parser.add_argument("--prior_batch_size", type=int, default=50000)
     parser.add_argument("--std_start", type=int, default=0)
-    parser.add_argument("--std_end", type=int, default=4)
+    parser.add_argument("--std_end", type=int, default=6)
     parser.add_argument("--std_steps", type=int, default=20)
     parser.add_argument("--scaling", type=float, default=2.)
     DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

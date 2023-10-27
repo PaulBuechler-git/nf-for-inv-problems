@@ -6,4 +6,5 @@
   "std_start": 0,
   "std_end": 6,
   "std_steps": 20,
-  "scaling": 2.0, "result_dir": "results/prior_noise_sensitivity_experiment/custom_material_prior/version_6"}
+  "scaling": 2.0,
+  "result_dir": "results/prior_noise_sensitivity_experiment/custom_material_prior/version_6"}
