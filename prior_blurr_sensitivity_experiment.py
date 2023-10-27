@@ -75,8 +75,8 @@ if __name__ == "__main__":
 
     parser.add_argument("--prior_batch_size", type=int, default=50000)
     parser.add_argument("--std_start", type=int, default=1)
-    parser.add_argument("--std_end", type=int, default=20)
-    parser.add_argument("--std_steps", type=int, default=20)
+    parser.add_argument("--std_end", type=int, default=30)
+    parser.add_argument("--std_steps", type=int, default=30)
     parser.add_argument("--kernel_size", type=int, default=11)
     DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
