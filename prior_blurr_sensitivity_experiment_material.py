@@ -74,7 +74,7 @@ if __name__ == "__main__":
     parser.add_argument("--result_path", type=str, default="results/prior_blurr_sensitivity_experiment")
 
     parser.add_argument("--prior_batch_size", type=int, default=50000)
-    parser.add_argument("--std_start", type=int, default=1)
+    parser.add_argument("--std_start", type=float, default=1)
     parser.add_argument("--std_end", type=int, default=6)
     parser.add_argument("--std_steps", type=int, default=20)
     parser.add_argument("--kernel_size", type=int, default=11)
