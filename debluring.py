@@ -81,9 +81,9 @@ if __name__ == "__main__":
     parser.add_argument("--steps", type=int, default=600, help="reconstruction steps")
 
     #image degradation
-    parser.add_argument("--kernel_size", type=int, default=9, help="Kernel size")
-    parser.add_argument("--kernel_std", type=int, default=1, help="Kernel std")
-    parser.add_argument("--noise_std", type=float, default=0.01, help="Noise std")
+    parser.add_argument("--kernel_size", type=int, default=15, help="Kernel size")
+    parser.add_argument("--kernel_std", type=int, default=9, help="Kernel std")
+    parser.add_argument("--noise_std", type=float, default=1, help="Noise std")
 
     #regulariser
     parser.add_argument("--reg_samples", type=int, default=50000)

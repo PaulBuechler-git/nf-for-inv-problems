@@ -1,1 +1,13 @@
-{"name": "butterfly_reconstruction", "model": "results/patch_nr/butterfly/version_1/butterfly_final.pth", "image": "data/DIV2K/buterfly/validate.png", "result_path": "results/reconstruction_experiment_inc_noise", "lam_start": 0.0, "lam_end": 0.2, "lam_steps": 20, "steps": 600, "kernel_size": 15, "kernel_std": 9, "noise_std": 0.01, "reg_samples": 50000, "result_dir": "results/reconstruction_experiment_inc_noise/butterfly_reconstruction/version_3"}
+{
+  "name": "butterfly_reconstruction", "model": "results/patch_nr/butterfly/version_1/butterfly_final.pth",
+  "image": "data/DIV2K/buterfly/validate.png",
+  "result_path": "results/reconstruction_experiment_inc_noise",
+  "lam_start": 0.0,
+  "lam_end": 0.2,
+  "lam_steps": 20,
+  "steps": 600,
+  "kernel_size": 15,
+  "kernel_std": 9,
+  "noise_std": 0.1,
+  "reg_samples": 50000,
+  "result_dir": "results/reconstruction_experiment_inc_noise/butterfly_reconstruction/version_3"}
