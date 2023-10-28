@@ -1,0 +1,1 @@
+{"name": "material_extreme", "model": "results/patch_nr/custom_patch_nr/version_3/custom_patch_nr_final.pth", "image": "data/material_pt_nr/test.png", "result_path": "results/deblurring", "lam": 300.0, "steps": 300, "kernel_size": 15, "kernel_std": 9, "noise_std": 1, "reg_samples": 50000}
