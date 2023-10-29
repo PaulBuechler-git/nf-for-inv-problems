@@ -66,7 +66,7 @@ def main(device, parsed_args):
     c, w, h = degraded_image.shape
     error_dim = w * h
     noise_vector_std1 = torch.reshape(torch.tensor(np.random.normal(0, noise_std, error_dim), device=device), (1, w, h))
-    noise_degraded_image = degraded_image + normalization(noise_vector_std1)
+    noise_degraded_image = degraded_image + normalization(noise_vector_std1*5.)
     startpoint = noise_degraded_image.clone()
 
     for lam in np.linspace(lam_start, lam_end, lam_steps):
@@ -84,7 +84,7 @@ def main(device, parsed_args):
         image_dir = os.path.join(result_dir, f'lam_{lam}_noise_std_{noise_std}')
         os.mkdir(image_dir)
         np.save(os.path.join(image_dir, 'reconstructed_image.npy'), rec_img)
-        save_normalized(os.path.join(image_dir, 'reconstructed_image.png'), rec_img)
+        save_normalized(os.path.join(image_dir, 'reconstructed_image_lam0.png'), rec_img)
         np.save(os.path.join(image_dir, 'degraded_image.npy'), deg_img)
         save_normalized(os.path.join(image_dir, 'degraded_image.png'), deg_img)
         np.save(os.path.join(image_dir, 'ground_truth_image.npy'), gt_img)
@@ -114,7 +114,7 @@ if __name__ == "__main__":
     parser.add_argument("--lam_start", type=float, default=0., help="Lambda start")
     parser.add_argument("--lam_end", type=float, default=.2, help="Lambda end")
     parser.add_argument("--lam_steps", type=int, default=10, help="Lambda steps")
-    parser.add_argument("--steps", type=int, default=300, help="reconstruction steps")
+    parser.add_argument("--steps", type=int, default=00, help="reconstruction steps")
 
     #image degradation
     parser.add_argument("--kernel_size", type=int, default=15, help="Kernel size")
