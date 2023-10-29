@@ -112,9 +112,9 @@ if __name__ == "__main__":
     parser.add_argument("--image", type=str, default="data/DIV2K/buterfly/validate.png", help="image_path")
     parser.add_argument("--result_path", type=str, default="results/reconstruction_experiment_weight_noise")
     parser.add_argument("--lam_start", type=float, default=0., help="Lambda start")
-    parser.add_argument("--lam_end", type=float, default=1, help="Lambda end")
+    parser.add_argument("--lam_end", type=float, default=.2, help="Lambda end")
     parser.add_argument("--lam_steps", type=int, default=10, help="Lambda steps")
-    parser.add_argument("--steps", type=int, default=600, help="reconstruction steps")
+    parser.add_argument("--steps", type=int, default=300, help="reconstruction steps")
 
     #image degradation
     parser.add_argument("--kernel_size", type=int, default=15, help="Kernel size")
