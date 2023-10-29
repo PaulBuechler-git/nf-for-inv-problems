@@ -110,10 +110,10 @@ if __name__ == "__main__":
     # reconstruction
     parser.add_argument("--model", type=str, default="results/patch_nr/butterfly/version_1/butterfly_final.pth", help="model_path")
     parser.add_argument("--image", type=str, default="data/DIV2K/buterfly/validate.png", help="image_path")
-    parser.add_argument("--result_path", type=str, default="results/reconstruction_experiment_inc_noise")
+    parser.add_argument("--result_path", type=str, default="results/reconstruction_experiment_weight_noise")
     parser.add_argument("--lam_start", type=float, default=0., help="Lambda start")
-    parser.add_argument("--lam_end", type=float, default=0.2, help="Lambda end")
-    parser.add_argument("--lam_steps", type=int, default=20, help="Lambda steps")
+    parser.add_argument("--lam_end", type=float, default=1, help="Lambda end")
+    parser.add_argument("--lam_steps", type=int, default=10, help="Lambda steps")
     parser.add_argument("--steps", type=int, default=600, help="reconstruction steps")
 
     #image degradation
@@ -122,10 +122,10 @@ if __name__ == "__main__":
     #parser.add_argument("--noise_std_start", type=float, default=0.01, help="Lambda start")
     #parser.add_argument("--noise_std_end", type=float, default=4., help="Lambda end")
     #parser.add_argument("--noise_std_steps", type=float, default=8, help="Lambda steps")
-    parser.add_argument("--noise_std", type=float, default=0.01, help="Noise std")
+    parser.add_argument("--noise_std", type=float, default=0.1, help="Noise std")
 
     #regulariser
-    parser.add_argument("--reg_samples", type=int, default=25000)
+    parser.add_argument("--reg_samples", type=int, default=50000)
 
     DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
