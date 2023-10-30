@@ -18,6 +18,7 @@ from transforms import image_normalization
 from variational_model_solver import variational_model_solver
 
 def main(device, parsed_args):
+    """Standalone implementation of the image reconstruction minimization for the """
     name = parsed_args.name
     model_path = parsed_args.model
     image_path = parsed_args.image
