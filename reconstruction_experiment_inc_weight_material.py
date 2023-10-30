@@ -114,7 +114,7 @@ if __name__ == "__main__":
     parser.add_argument("--lam_start", type=float, default=0., help="Lambda start")
     parser.add_argument("--lam_end", type=float, default=.2, help="Lambda end")
     parser.add_argument("--lam_steps", type=int, default=10, help="Lambda steps")
-    parser.add_argument("--steps", type=int, default=00, help="reconstruction steps")
+    parser.add_argument("--steps", type=int, default=600, help="reconstruction steps")
 
     #image degradation
     parser.add_argument("--kernel_size", type=int, default=15, help="Kernel size")

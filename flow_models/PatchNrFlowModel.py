@@ -15,7 +15,6 @@ class PatchNrFlowModel(FlowModel):
 
     @classmethod
     def _create_model(cls, num_layers=5, sub_net_size=512, dimension=36):
-        print(num_layers, sub_net_size, dimension)
         # This code belongs to the paper
         #
         # F. Altekrüger, A. Denker, P. Hagemann, J. Hertrich, P. Maass and G. Steidl (2023).
