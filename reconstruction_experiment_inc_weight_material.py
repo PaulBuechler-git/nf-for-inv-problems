@@ -4,19 +4,18 @@ import os.path
 import sqlite3
 from argparse import ArgumentParser
 
-from PIL import Image
 from torchvision import transforms
 
-from file_utils import create_versioned_dir, save_normalized
-from flow_models.PatchFlowModel import PatchFlowModel
-from img_utils import ImageLoader
-from operators import BlurOperator
+from core.file_utils import create_versioned_dir, save_normalized
+from patchNr.PatchFlowModel import PatchFlowModel
+from core.img_utils import ImageLoader
+from patchNr.Operators import BlurOperator
 import torch
-from kernels import gaussian_kernel_generator
-from regularisers import PatchNrRegulariser
+from core.kernels import gaussian_kernel_generator
+from patchNr.PatchNrRegulariser import PatchNrRegulariser
 import numpy as np
-from transforms import image_normalization
-from variational_model_solver import variational_model_solver
+from core.Transforms import image_normalization
+from core.VariationalModelSolver import variational_model_solver
 import skimage.metrics as skim
 
 def main(device, parsed_args):
@@ -31,9 +30,6 @@ def main(device, parsed_args):
     kernel_size = parsed_args.kernel_size
     kernel_std = parsed_args.kernel_std
     noise_std = parsed_args.noise_std
-    #noise_std_start = parsed_args.noise_std_start
-    #noise_std_end = parsed_args.noise_std_end
-    #noise_std_steps = parsed_args.noise_std_steps
     reg_samples = parsed_args.reg_samples
 
     result_dir = create_versioned_dir(result_path, name)
@@ -89,7 +85,7 @@ def main(device, parsed_args):
         save_normalized(os.path.join(image_dir, 'degraded_image.png'), deg_img)
         np.save(os.path.join(image_dir, 'ground_truth_image.npy'), gt_img)
         save_normalized(os.path.join(image_dir, 'ground_truth_image.png'), gt_img)
-        #np.save(os.path.join(image_dir, 'loss.npy'), np.array([loss, likelihood, regulariser]))
+
         psnr = skim.peak_signal_noise_ratio(gt_img, rec_img)
         psnr_deg = skim.peak_signal_noise_ratio(gt_img, deg_img)
         mssim, img_gt_rec_ssim  = skim.structural_similarity(gt_img, rec_img, win_size=15, data_range=1., full=True)
@@ -119,9 +115,6 @@ if __name__ == "__main__":
     #image degradation
     parser.add_argument("--kernel_size", type=int, default=15, help="Kernel size")
     parser.add_argument("--kernel_std", type=int, default=9, help="Kernel std")
-    #parser.add_argument("--noise_std_start", type=float, default=0.01, help="Lambda start")
-    #parser.add_argument("--noise_std_end", type=float, default=4., help="Lambda end")
-    #parser.add_argument("--noise_std_steps", type=float, default=8, help="Lambda steps")
     parser.add_argument("--noise_std", type=float, default=1, help="Noise std")
 
     #regulariser
