@@ -9,4 +9,5 @@
   "kernel_size": 15,
   "kernel_std": 9,
   "noise_std": 0.1,
-  "reg_samples": 50000, "result_dir": "results/reconstruction_experiment_inc_noise/butterfly_reconstruction/version_2"}
+  "reg_samples": 50000,
+  "result_dir": "results/reconstruction_experiment_inc_noise/butterfly_reconstruction/version_2"}
